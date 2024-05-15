@@ -1,0 +1,96 @@
+/******* TABLES *******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}DemoModule_Companies') AND type in (N'U'))
+BEGIN
+CREATE TABLE {databaseOwner}{objectQualifier}DemoModule_Companies(
+ [CompanyId] [int] IDENTITY(1,1) NOT NULL,
+ [PortalId] [int] NOT NULL,
+ [CompanyName] [nvarchar](300) NOT NULL,
+ [Address] [nvarchar](300) NULL,
+ [PostalCode] [varchar](10) NULL,
+ [City] [nvarchar](100) NULL,
+ [Country] [nvarchar](100) NULL,
+ [CreatedByUserID] [int] NOT NULL,
+ [CreatedOnDate] [datetime] NOT NULL,
+ [LastModifiedByUserID] [int] NOT NULL,
+ [LastModifiedOnDate] [datetime] NOT NULL,
+ CONSTRAINT PK_{objectQualifier}DemoModule_Companies PRIMARY KEY CLUSTERED 
+(
+ [CompanyId] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}DemoModule_ProductModels') AND type in (N'U'))
+BEGIN
+CREATE TABLE {databaseOwner}{objectQualifier}DemoModule_ProductModels(
+ [ProductModelId] [int] IDENTITY(1,1) NOT NULL,
+ [PortalId] [int] NOT NULL,
+ [ModelName] [nvarchar](50) NOT NULL,
+ [CreatedByUserID] [int] NOT NULL,
+ [CreatedOnDate] [datetime] NOT NULL,
+ [LastModifiedByUserID] [int] NOT NULL,
+ [LastModifiedOnDate] [datetime] NOT NULL,
+ CONSTRAINT PK_{objectQualifier}DemoModule_ProductModels PRIMARY KEY CLUSTERED 
+(
+ [ProductModelId] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}DemoModule_Products') AND type in (N'U'))
+BEGIN
+CREATE TABLE {databaseOwner}{objectQualifier}DemoModule_Products(
+ [ProductId] [int] IDENTITY(1,1) NOT NULL,
+ [CompanyId] [int] NOT NULL,
+ [ProductModelId] [int] NOT NULL,
+ [SerialNr] [varchar](100) NULL,
+ [Location] [nvarchar](300) NOT NULL,
+ [ExpiryDate] [date] NULL,
+ [CreatedByUserID] [int] NOT NULL,
+ [CreatedOnDate] [datetime] NOT NULL,
+ [LastModifiedByUserID] [int] NOT NULL,
+ [LastModifiedOnDate] [datetime] NOT NULL,
+ CONSTRAINT PK_{objectQualifier}DemoModule_Products PRIMARY KEY CLUSTERED 
+(
+ [ProductId] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+/******* FOREIGN KEYS *******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}FK_{objectQualifier}DemoModule_Companies_Portals') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}DemoModule_Companies'))
+ALTER TABLE {databaseOwner}{objectQualifier}DemoModule_Companies  WITH CHECK ADD  CONSTRAINT FK_{objectQualifier}DemoModule_Companies_Portals FOREIGN KEY([PortalId])
+REFERENCES {databaseOwner}{objectQualifier}Portals ([PortalID])
+ON DELETE CASCADE
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}FK_{objectQualifier}DemoModule_Companies_Portals') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}DemoModule_Companies'))
+ALTER TABLE {databaseOwner}{objectQualifier}DemoModule_Companies CHECK CONSTRAINT FK_{objectQualifier}DemoModule_Companies_Portals
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}FK_{objectQualifier}DemoModule_ProductModels_Portals') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}DemoModule_ProductModels'))
+ALTER TABLE {databaseOwner}{objectQualifier}DemoModule_ProductModels  WITH CHECK ADD  CONSTRAINT FK_{objectQualifier}DemoModule_ProductModels_Portals FOREIGN KEY([PortalId])
+REFERENCES {databaseOwner}{objectQualifier}Portals ([PortalID])
+ON DELETE CASCADE
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}FK_{objectQualifier}DemoModule_ProductModels_Portals') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}DemoModule_ProductModels'))
+ALTER TABLE {databaseOwner}{objectQualifier}DemoModule_ProductModels CHECK CONSTRAINT FK_{objectQualifier}DemoModule_ProductModels_Portals
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}FK_{objectQualifier}DemoModule_Products__Companies') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}DemoModule_Products'))
+ALTER TABLE {databaseOwner}{objectQualifier}DemoModule_Products  WITH CHECK ADD  CONSTRAINT FK_{objectQualifier}DemoModule_Products__Companies FOREIGN KEY([CompanyId])
+REFERENCES {databaseOwner}{objectQualifier}DemoModule_Companies ([CompanyId])
+ON DELETE CASCADE
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}FK_{objectQualifier}DemoModule_Products__Companies') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}DemoModule_Products'))
+ALTER TABLE {databaseOwner}{objectQualifier}DemoModule_Products CHECK CONSTRAINT FK_{objectQualifier}DemoModule_Products__Companies
+GO
+

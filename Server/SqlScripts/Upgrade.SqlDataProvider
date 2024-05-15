@@ -1,0 +1,82 @@
+/******* SPROCS *******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}DemoModule_GetProductsByPortal') AND type in (N'P', N'PC'))
+DROP PROCEDURE {databaseOwner}{objectQualifier}DemoModule_GetProductsByPortal
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}DemoModule_SetProductExpiryDate') AND type in (N'P', N'PC'))
+DROP PROCEDURE {databaseOwner}{objectQualifier}DemoModule_SetProductExpiryDate
+GO
+
+/******* VIEWS AND FUNCTIONS *******/
+DROP VIEW IF EXISTS {databaseOwner}{objectQualifier}vw_DemoModule_Products
+GO
+
+DROP VIEW IF EXISTS {databaseOwner}{objectQualifier}vw_DemoModule_Companies
+GO
+
+/******* TRIGGERS *******/
+/******* TYPES *******/
+/******* TYPES *******/
+/******* TRIGGERS *******/
+/******* VIEWS AND FUNCTIONS *******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE VIEW {databaseOwner}{objectQualifier}vw_DemoModule_Companies
+AS
+SELECT
+ c.*,
+ (SELECT COUNT(p.ProductId) FROM {databaseOwner}{objectQualifier}DemoModule_Products p WHERE p.CompanyId=c.CompanyId) NrProducts
+FROM {databaseOwner}{objectQualifier}DemoModule_Companies c
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE VIEW {databaseOwner}{objectQualifier}vw_DemoModule_Products
+AS
+SELECT
+ p.*,
+ pm.ModelName,
+ c.CompanyName,
+ c.Address,
+ c.City,
+ c.PortalId,
+ uc.DisplayName CreatedByUserDisplayName,
+ um.DisplayName LastModifiedByUserDisplayName
+FROM {databaseOwner}{objectQualifier}DemoModule_Products p
+ INNER JOIN {databaseOwner}{objectQualifier}DemoModule_Companies c ON c.CompanyId=p.CompanyId
+ INNER JOIN {databaseOwner}{objectQualifier}DemoModule_ProductModels pm ON pm.ProductModelId=p.ProductModelId
+ LEFT JOIN {databaseOwner}{objectQualifier}Users uc ON uc.UserID=p.CreatedByUserID
+ LEFT JOIN {databaseOwner}{objectQualifier}Users um ON um.UserID=p.LastModifiedByUserID
+GO
+
+/******* SPROCS *******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DemoModule_GetProductsByPortal
+@PortalId INT
+AS
+SELECT
+ p.*
+FROM {databaseOwner}{objectQualifier}vw_DemoModule_Products p
+WHERE p.PortalId=@PortalId
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DemoModule_SetProductExpiryDate
+ @ProductId INT,
+ @NewExpiryDate DATE
+AS
+UPDATE {databaseOwner}{objectQualifier}DemoModule_Products
+SET ExpiryDate=@NewExpiryDate
+WHERE ProductId=@ProductId
+GO
+
