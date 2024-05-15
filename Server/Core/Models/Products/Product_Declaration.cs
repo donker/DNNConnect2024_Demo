@@ -27,6 +27,8 @@ namespace Demo.DnnConnect.Core.Models.Products
         [DataMember]
         public string City { get; set; }
         [DataMember]
+        public int PortalId { get; set; }
+        [DataMember]
         public string CreatedByUserDisplayName { get; set; }
         [DataMember]
         public string LastModifiedByUserDisplayName { get; set; }
@@ -61,6 +63,7 @@ namespace Demo.DnnConnect.Core.Models.Products
             res.CompanyName = CompanyName;
             res.Address = Address;
             res.City = City;
+            res.PortalId = PortalId;
             res.CreatedByUserDisplayName = CreatedByUserDisplayName;
             res.LastModifiedByUserDisplayName = LastModifiedByUserDisplayName;
             res.CreatedByUserID = CreatedByUserID;

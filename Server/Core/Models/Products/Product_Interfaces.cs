@@ -20,6 +20,7 @@ namespace Demo.DnnConnect.Core.Models.Products
    CompanyName = Convert.ToString(Null.SetNull(dr["CompanyName"], CompanyName));
    Address = Convert.ToString(Null.SetNull(dr["Address"], Address));
    City = Convert.ToString(Null.SetNull(dr["City"], City));
+   PortalId = Convert.ToInt32(Null.SetNull(dr["PortalId"], PortalId));
    CreatedByUserDisplayName = Convert.ToString(Null.SetNull(dr["CreatedByUserDisplayName"], CreatedByUserDisplayName));
    LastModifiedByUserDisplayName = Convert.ToString(Null.SetNull(dr["LastModifiedByUserDisplayName"], LastModifiedByUserDisplayName));
   }
@@ -45,6 +46,8 @@ namespace Demo.DnnConnect.Core.Models.Products
          return "";
      };
      return PropertyAccess.FormatString(City, strFormat);
+    case "portalid": // Int
+     return PortalId.ToString(strFormat, formatProvider);
     case "createdbyuserdisplayname": // NVarChar
      if (CreatedByUserDisplayName == null)
      {
