@@ -8,5 +8,5 @@
 
 @foreach (var c in Demo.DnnConnect.Core.Repositories.CompanyRepository.Instance.GetCompanies(Dnn.PortalSettings.PortalId))
 {
- <p><a href="@Url.Action("Index", "Companies", new { CompanyId = c.CompanyId })">@c.CompanyName</a></p>
+ <p><a href="@Url.Action("Index", "Companies", new { CompanyId = c.CompanyId })">@c.CompanyName</a> (@c.NrProducts)</p>
 }
