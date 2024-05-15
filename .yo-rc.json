@@ -1,0 +1,26 @@
+{
+  "generator-dotnetnuke": {
+    "promptValues": {
+      "projType": "library",
+      "dnnVersion": "9.13.3",
+      "npm": true,
+      "projectname": "DnnConnect",
+      "projectdescription": "DnnConnect module",
+      "yourname": "Peter Donker",
+      "email": "peter@bring2mind.net",
+      "companyfull": "Demo",
+      "companyshort": "Demo",
+      "companyUrl": "dnn-connect.org",
+      "dnnHost": "http://dnndev.me",
+      "dnnRoot": "D:\\test",
+      "namespace": "Demo.DnnConnect",
+      "Name": "Core",
+      "Namespace": "Demo.DnnConnect.Core",
+      "Separate": false
+    },
+    "Company": "Demo",
+    "Project": "DnnConnect",
+    "Namespace": "Demo.DnnConnect",
+    "Solution": "Demo.DnnConnect"
+  }
+}

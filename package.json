@@ -1,0 +1,56 @@
+{
+  "name": "dnnconnect",
+  "version": "0.0.1",
+  "description": "DnnConnect module",
+  "dnn": {
+    "projectFolders": [
+      "Server/DemoModule"
+    ],
+    "owner": {
+      "name": "Peter Donker",
+      "organization": "Demo",
+      "url": "dnn-connect.org",
+      "email": "peter@bring2mind.net"
+    },
+    "pathsAndFiles": {
+      "solutionFile": "./Demo.DnnConnect.sln",
+      "pathToAssemblies": "./bin",
+      "devSiteUrl": "",
+      "devSitePath": "",
+      "excludeFilter": [
+        "bin/",
+        "obj/",
+        "node_modules"
+      ],
+      "licenseFile": "./License.md",
+      "releaseNotesFile": "",
+      "releaseFiles": [
+        "App_LocalResources/*.resx",
+        "**/*.ascx",
+        "**/*.cshtml",
+        "**/*.vbhtml",
+        "js/*.js",
+        "css/*.css",
+        "*.css",
+        "**/*.html",
+        "**/*.png",
+        "**/*.jpg",
+        "**/*.jpeg",
+        "**/*.gif",
+        "**/*.eot",
+        "**/*.svg",
+        "**/*.ttf",
+        "**/*.woff",
+        "**/*.woff2",
+        "*.txt"
+      ],
+      "zipName": "Demo.DnnConnect"
+    }
+  },
+  "scripts": {
+    "build": "set NODE_ENV=production&&webpack --config Client/webpack.config.js",
+    "watch": "webpack --config Client/webpack.config.js --progress --watch",
+    "watch-server": "node watch.js"
+  },
+  "author": "Peter Donker"
+}

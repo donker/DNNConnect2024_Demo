@@ -1,0 +1,46 @@
+{
+  "name": "Demo.DemoModule",
+  "projectType": "module",
+  "friendlyName": "DemoModule Module",
+  "description": "Demo DemoModule Module",
+  "packageName": "Demo_DemoModule",
+  "folder": "MVC/Demo/DemoModule",
+  "iconFile": "DesktopModules\\MVC\\Demo\\DemoModule\\icon.png",
+  "module": {
+    "azureCompatible": "true",
+    "moduleName": "Demo_DemoModule",
+    "foldername": "Demo/DemoModule",
+    "businessControllerClass": "Demo.DnnConnect.DemoModule.Common.ModuleController, DEMO.DNNCONNECT.DEMOMODULE",
+    "supportedFeatures": [ "Portable" ],
+    "moduleDefinitions": [
+      {
+        "friendlyName": "Demo DemoModule",
+        "defaultCacheTime": 0,
+        "moduleControls": [
+          {
+            "controlSrc": "Demo.DnnConnect.DemoModule.Controllers/Home/Index.mvc",
+            "supportsPartialRendering": "False",
+            "controlTitle": "DemoModule",
+            "controlType": "View",
+            "viewOrder": 0
+          },
+          {
+            "controlKey": "Settings",
+            "controlSrc": "Demo.DnnConnect.DemoModule.Controllers/Settings/Settings.mvc",
+            "supportsPartialRendering": "False",
+            "controlTitle": "DemoModule Settings",
+            "controlType": "Edit",
+            "viewOrder": 0
+          }
+        ],
+        "permissions": []
+      }
+    ]
+  },
+  "pathsAndFiles": {
+    "pathToAssemblies": "./bin",
+    "pathToScripts": "./Server/SqlScripts",
+    "assemblies": [ "Demo.DnnConnect.DemoModule.dll", "Demo.DnnConnect.Core" ],
+    "excludeFilter": [ "DemoModule/bin/", "DemoModule/obj/" ]
+  }
+}
