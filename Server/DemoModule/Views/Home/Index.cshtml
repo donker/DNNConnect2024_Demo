@@ -6,12 +6,7 @@
 
 <h1>Hello DemoModule Module</h1>
 
-<div class="DemoDemoModule DemoModule"
-     data-locale="@System.Threading.Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName"
-     data-moduleid="@Dnn.ActiveModule.ModuleID"
-     data-tabid="@Dnn.ActiveModule.TabID"
-     data-portalid="@Dnn.PortalSettings.PortalId"
-     data-resources="@SerializedResources()"
-     data-security="@(Newtonsoft.Json.JsonConvert.SerializeObject(DemoModuleModuleContext.Security))"
-     >
-</div>
+@foreach (var c in Demo.DnnConnect.Core.Repositories.CompanyRepository.Instance.GetCompanies(Dnn.PortalSettings.PortalId))
+{
+ <p>@c.CompanyName</p>
+}
