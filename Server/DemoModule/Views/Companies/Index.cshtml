@@ -1,0 +1,25 @@
+@inherits DemoModuleWebPage<Demo.DnnConnect.Core.Models.Companies.Company>
+@using Demo.DnnConnect.DemoModule.Common
+@{
+  DemoModuleModuleContext.AddModuleScript();
+}
+
+<h1>Hello @Model.CompanyName</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>SerialNr</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var p in Demo.DnnConnect.Core.Repositories.ProductRepository.Instance.GetProductsByCompany(Model.CompanyId))
+    {
+      <tr>
+        <td>@p.SerialNr</td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<a href="@Url.Action("Index", "Home")">Back</a>
