@@ -3,4 +3,5 @@
 **/obj
 Releases
 .out
+node_modules
 
