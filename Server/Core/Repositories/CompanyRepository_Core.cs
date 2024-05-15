@@ -31,7 +31,7 @@ namespace Demo.DnnConnect.Core.Repositories
                 return rep.GetById(companyId, portalId);
             }
         }
-        public Company AddCompany(Company company, int userId)
+        public CompanyBase AddCompany(CompanyBase company, int userId)
         {
             Requires.NotNull(company);
             Requires.PropertyNotNegative(company, "PortalId");
@@ -41,18 +41,18 @@ namespace Demo.DnnConnect.Core.Repositories
             company.LastModifiedOnDate = DateTime.Now;
             using (var context = DataContext.Instance())
             {
-                var rep = context.GetRepository<Company>();
+                var rep = context.GetRepository<CompanyBase>();
                 rep.Insert(company);
             }
             return company;
         }
-        public void DeleteCompany(Company company)
+        public void DeleteCompany(CompanyBase company)
         {
             Requires.NotNull(company);
             Requires.PropertyNotNegative(company, "CompanyId");
             using (var context = DataContext.Instance())
             {
-                var rep = context.GetRepository<Company>();
+                var rep = context.GetRepository<CompanyBase>();
                 rep.Delete(company);
             }
         }
@@ -60,11 +60,11 @@ namespace Demo.DnnConnect.Core.Repositories
         {
             using (var context = DataContext.Instance())
             {
-                var rep = context.GetRepository<Company>();
+                var rep = context.GetRepository<CompanyBase>();
                 rep.Delete("WHERE PortalId = @0 AND CompanyId = @1", portalId, companyId);
             }
         }
-        public void UpdateCompany(Company company, int userId)
+        public void UpdateCompany(CompanyBase company, int userId)
         {
             Requires.NotNull(company);
             Requires.PropertyNotNegative(company, "CompanyId");
@@ -72,7 +72,7 @@ namespace Demo.DnnConnect.Core.Repositories
             company.LastModifiedOnDate = DateTime.Now;
             using (var context = DataContext.Instance())
             {
-                var rep = context.GetRepository<Company>();
+                var rep = context.GetRepository<CompanyBase>();
                 rep.Update(company);
             }
         } 
@@ -81,10 +81,10 @@ namespace Demo.DnnConnect.Core.Repositories
     {
         IEnumerable<Company> GetCompanies(int portalId);
         Company GetCompany(int portalId, int companyId);
-        Company AddCompany(Company company, int userId);
-        void DeleteCompany(Company company);
+        CompanyBase AddCompany(CompanyBase company, int userId);
+        void DeleteCompany(CompanyBase company);
         void DeleteCompany(int portalId, int companyId);
-        void UpdateCompany(Company company, int userId);
+        void UpdateCompany(CompanyBase company, int userId);
     }
 }
 

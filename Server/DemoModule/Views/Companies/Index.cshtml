@@ -9,14 +9,24 @@
 <table>
   <thead>
     <tr>
-      <th>SerialNr</th>
+      <th>Model</th>
+      <th>Serial Nr</th>
+      <th>Location</th>
+      <th>Expires</th>
+      <th>Created By</th>
+      <th>Created On</th>
     </tr>
   </thead>
   <tbody>
     @foreach (var p in Demo.DnnConnect.Core.Repositories.ProductRepository.Instance.GetProductsByCompany(Model.CompanyId))
     {
       <tr>
+        <td>@p.ModelName</td>
         <td>@p.SerialNr</td>
+        <td>@p.Location</td>
+        <td>@p.ExpiryDate</td>
+        <td>@p.CreatedByUserDisplayName</td>
+        <td>@p.CreatedOnDate</td>
       </tr>
     }
   </tbody>

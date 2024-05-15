@@ -28,7 +28,7 @@ namespace Demo.DnnConnect.Core.Repositories
             using (var context = DataContext.Instance())
             {
                 return context.ExecuteQuery<Product>(System.Data.CommandType.Text,
-                    "SELECT * FROM {databaseOwner}{objectQualifier}DemoModule_Products WHERE CompanyId=@0",
+                    "SELECT * FROM {databaseOwner}{objectQualifier}vw_DemoModule_Products WHERE CompanyId=@0",
                     companyId);
             }
         }
@@ -40,7 +40,7 @@ namespace Demo.DnnConnect.Core.Repositories
                 return rep.GetById(productId);
             }
         }
-        public Product AddProduct(Product product, int userId)
+        public ProductBase AddProduct(ProductBase product, int userId)
         {
             Requires.NotNull(product);
             product.CreatedByUserID = userId;
@@ -49,18 +49,18 @@ namespace Demo.DnnConnect.Core.Repositories
             product.LastModifiedOnDate = DateTime.Now;
             using (var context = DataContext.Instance())
             {
-                var rep = context.GetRepository<Product>();
+                var rep = context.GetRepository<ProductBase>();
                 rep.Insert(product);
             }
             return product;
         }
-        public void DeleteProduct(Product product)
+        public void DeleteProduct(ProductBase product)
         {
             Requires.NotNull(product);
             Requires.PropertyNotNegative(product, "ProductId");
             using (var context = DataContext.Instance())
             {
-                var rep = context.GetRepository<Product>();
+                var rep = context.GetRepository<ProductBase>();
                 rep.Delete(product);
             }
         }
@@ -68,11 +68,11 @@ namespace Demo.DnnConnect.Core.Repositories
         {
             using (var context = DataContext.Instance())
             {
-                var rep = context.GetRepository<Product>();
+                var rep = context.GetRepository<ProductBase>();
                 rep.Delete("WHERE ProductId = @0", productId);
             }
         }
-        public void UpdateProduct(Product product, int userId)
+        public void UpdateProduct(ProductBase product, int userId)
         {
             Requires.NotNull(product);
             Requires.PropertyNotNegative(product, "ProductId");
@@ -80,7 +80,7 @@ namespace Demo.DnnConnect.Core.Repositories
             product.LastModifiedOnDate = DateTime.Now;
             using (var context = DataContext.Instance())
             {
-                var rep = context.GetRepository<Product>();
+                var rep = context.GetRepository<ProductBase>();
                 rep.Update(product);
             }
         } 
@@ -90,10 +90,10 @@ namespace Demo.DnnConnect.Core.Repositories
         IEnumerable<Product> GetProducts();
         IEnumerable<Product> GetProductsByCompany(int companyId);
         Product GetProduct(int productId);
-        Product AddProduct(Product product, int userId);
-        void DeleteProduct(Product product);
+        ProductBase AddProduct(ProductBase product, int userId);
+        void DeleteProduct(ProductBase product);
         void DeleteProduct(int productId);
-        void UpdateProduct(Product product, int userId);
+        void UpdateProduct(ProductBase product, int userId);
     }
 }
 
