@@ -40,7 +40,7 @@
   "pathsAndFiles": {
     "pathToAssemblies": "./bin",
     "pathToScripts": "./Server/SqlScripts",
-    "assemblies": [ "Demo.DnnConnect.DemoModule.dll", "Demo.DnnConnect.Core" ],
+    "assemblies": [ "Demo.DnnConnect.DemoModule.dll", "Demo.DnnConnect.Core.dll" ],
     "excludeFilter": [ "DemoModule/bin/", "DemoModule/obj/" ]
   }
 }
