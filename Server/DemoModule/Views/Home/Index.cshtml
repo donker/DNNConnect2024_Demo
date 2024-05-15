@@ -6,7 +6,7 @@
 
 <h1>Hello DemoModule Module</h1>
 
-@foreach (var c in Demo.DnnConnect.Core.Repositories.CompanyRepository.Instance.GetCompanies(Dnn.PortalSettings.PortalId))
+@foreach (var p in Demo.DnnConnect.Core.Data.Sprocs.GetProductsByPortal(Dnn.PortalSettings.PortalId))
 {
- <p><a href="@Url.Action("Index", "Companies", new { CompanyId = c.CompanyId })">@c.CompanyName</a> (@c.NrProducts)</p>
+ <span>@p.ModelName</span> <span>@p.SerialNr</span> <a href="@Url.Action("Index", "Companies", new { CompanyId = p.CompanyId })">@p.CompanyName</a><br/>
 }
