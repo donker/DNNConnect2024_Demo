@@ -23,6 +23,15 @@ namespace Demo.DnnConnect.Core.Repositories
                 return rep.Get();
             }
         }
+        public IEnumerable<Product> GetProductsByCompany(int companyId)
+        {
+            using (var context = DataContext.Instance())
+            {
+                return context.ExecuteQuery<Product>(System.Data.CommandType.Text,
+                    "SELECT * FROM {databaseOwner}{objectQualifier}DemoModule_Products WHERE CompanyId=@0",
+                    companyId);
+            }
+        }
         public Product GetProduct(int productId)
         {
             using (var context = DataContext.Instance())
@@ -79,6 +88,7 @@ namespace Demo.DnnConnect.Core.Repositories
     public partial interface IProductRepository
     {
         IEnumerable<Product> GetProducts();
+        IEnumerable<Product> GetProductsByCompany(int companyId);
         Product GetProduct(int productId);
         Product AddProduct(Product product, int userId);
         void DeleteProduct(Product product);
