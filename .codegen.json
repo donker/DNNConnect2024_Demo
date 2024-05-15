@@ -1,0 +1,15 @@
+{
+  "Template": ".\\.templates\\Main.cshtml",
+  "OutputDirectory": ".\\.out",
+  "OrgName": "Demo",
+  "ModuleName": "Core",
+  "RootNameSpace": "Demo.DnnConnect.Core",
+  "SiteConfig": "",
+  "ConnectionString": "Data Source=(local);Initial Catalog=DNN101;uid=test;pwd=test;TrustServerCertificate=True",
+  "ObjectQualifier": "",
+  "DatabaseOwner": "dbo",
+  "ModuleObjectQualifier": "DemoModule_",
+  "IncludeSqlScripts": true,
+  "EnumValues": null,
+  "FullDbPattern": ""
+}
