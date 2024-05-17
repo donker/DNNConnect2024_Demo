@@ -5,6 +5,8 @@ using System.Web.Http;
 using System.Net;
 using Demo.DnnConnect.Core.Repositories;
 using System.Linq;
+using System.Data.SqlClient;
+using DotNetNuke.Collections;
 
 namespace Demo.DnnConnect.DemoModule.Api.v1
 {
@@ -15,6 +17,7 @@ namespace Demo.DnnConnect.DemoModule.Api.v1
       mapRouteManager.MapHttpRoute("v1", "DemoModuleCompaniesControllerMap1", "companies", new { Controller = "Companies", Action = "List" }, null, new[] { "Demo.DnnConnect.DemoModule.Api.v1" });
       mapRouteManager.MapHttpRoute("v1", "DemoModuleCompaniesControllerMap2", "companies/{companyId}", new { Controller = "Companies", Action = "Company" }, new { companyId = "-?\\d+" }, new[] { "Demo.DnnConnect.DemoModule.Api.v1" });
       mapRouteManager.MapHttpRoute("v1", "DemoModuleCompaniesControllerMap3", "companies/{companyId}/products", new { Controller = "Companies", Action = "Products" }, new { companyId = "-?\\d+" }, new[] { "Demo.DnnConnect.DemoModule.Api.v1" });
+      mapRouteManager.MapHttpRoute("v1", "DemoModuleCompaniesControllerMap4", "products", new { Controller = "Companies", Action = "ProductsByPortal" }, null, new[] { "Demo.DnnConnect.DemoModule.Api.v1" });
     }
 
     [HttpGet]
@@ -40,6 +43,14 @@ namespace Demo.DnnConnect.DemoModule.Api.v1
     public HttpResponseMessage Products(int companyId)
     {
       return Request.CreateResponse(HttpStatusCode.OK, ProductRepository.Instance.GetProductsByCompany(companyId));
+    }
+
+    [HttpGet]
+    [ApiTokenAuthorize("Companies", "~/DesktopModules/MVC/Demo/DemoModule/App_LocalResources/SharedResources.resx", DotNetNuke.Web.Api.Auth.ApiTokens.Models.ApiTokenScope.Portal)]
+    public HttpResponseMessage ProductsByPortal(string sortField, string sortOrder, int pageSize, int pageIndex)
+    {
+      var so = sortOrder.ToUpperInvariant().StartsWith("DESC") ? SortOrder.Descending : SortOrder.Ascending;
+      return Request.CreateResponse(HttpStatusCode.OK, ProductRepository.Instance.List(PortalSettings.PortalId, sortField, so, pageSize, pageIndex).Serialize());
     }
   }
 }
